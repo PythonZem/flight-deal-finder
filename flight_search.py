@@ -4,7 +4,6 @@ import requests
 class FlightSearch:
 
     def __init__(self, API_KEY: str):
-        self.API_KEY = API_KEY
         self.fly_search_endpoint = "https://api.tequila.kiwi.com/v2/search?"
         self.HEADER = {
             'accept': 'json',
