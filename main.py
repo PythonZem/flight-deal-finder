@@ -8,9 +8,8 @@ load_dotenv(find_dotenv())
 
 data = FlightSearch(API_KEY=os.getenv("FLIGHT_SEARCH_KEY"))
 d = data.fly_searching(fly_from="IST", fly_to="PAR", date_from="04/10/2023", date_to="04/03/2024")
-print(d)
-json_data = json.loads(str(d))
-f = FlightData(json_data["fly_from"], json_data["fly_to"], json_data["utc_departure"], json_data["utc_arrival"],
-               json_data["price"])
+
+f = FlightData(fly_from=d["flyFrom"], fly_to=d["flyTo"], utc_departure=d["utc_departure"],
+               utc_arrival=d["utc_arrival"], price=d["price"])
 print(f.price)
 #This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
