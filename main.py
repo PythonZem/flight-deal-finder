@@ -2,7 +2,6 @@ import os
 from dotenv import find_dotenv, load_dotenv
 from flight_search import FlightSearch
 from flight_data import FlightData
-import json
 
 load_dotenv(find_dotenv())
 
