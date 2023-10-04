@@ -4,6 +4,7 @@ from flight_search import FlightSearch
 from flight_data import FlightData
 from data_manager import DataManager
 from notification_manager import NotificationManager
+from datetime import datetime, timedelta
 
 load_dotenv(find_dotenv())
 
@@ -12,21 +13,28 @@ TWILIO_KYE = os.getenv("TWILIO_KYE")
 TWILIO_TOKEN = os.getenv("TWILIO_TOKEN")
 
 FlyData_SearchModule = FlightSearch(API_KEY=FLY_KEY)
-sheety_data = DataManager()
-target_cities_list = sheety_data.get_request()
+SheetyData_Module = DataManager()
+target_cities_list = SheetyData_Module.get_request()
 
+tomorrow = datetime.now() + timedelta(days=1)
+six_month_from_today = datetime.now() + timedelta(days=6 * 30)
 
 def start_program():
 
     for target_city in target_cities_list:
+        fly_toCity = target_city["city"]
+        City_RowID = target_city["id"]
+        if target_city["iataCode"] == '':
+            SheetyData_Module.put_IATACode(IATA_code=FlyData_SearchModule.IATA_Code_searching(fly_toCity),
+                                           RowID=City_RowID)
         fly_fromCity = "Warsaw"
         fly_fromCode = "WAW"
         fly_toCode = target_city["iataCode"]
-        fly_toCity = target_city["city"]
+
         target_price = target_city["lowestPrice"]
 
         s_data = FlyData_SearchModule.fly_searching(fly_from=fly_fromCode, fly_to=fly_toCode,
-                                                    date_from="04/10/2023", date_to="04/03/2024")
+                                                    date_from=tomorrow, date_to=six_month_from_today)
 
         flyData = FlightData(fly_from=s_data["flyFrom"], fly_to=s_data["flyTo"], utc_departure=s_data["utc_departure"],
                              utc_arrival=s_data["utc_arrival"], price=s_data["price"])
@@ -35,3 +43,6 @@ def start_program():
     {fly_toCity}-{fly_toCode}, from {flyData.utc_arrival} to {flyData.utc_departure}"""
             print(text_sms)
         # Sender_SMS = NotificationManager(KEY=TWILIO_KYE, TOKEN=TWILIO_TOKEN, text_sms=text_sms)
+start_program()
+# print(FlyData_SearchModule.fly_searching(fly_from="WAW", fly_to="PAR", date_from=tomorrow, date_to=six_month_from_today))
+# print(FlyData_SearchModule.fly_searching(fly_from="WAW", fly_to="BER", date_from=tomorrow, date_to=six_month_from_today))
