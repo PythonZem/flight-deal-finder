@@ -35,4 +35,3 @@ def start_program():
     {fly_toCity}-{fly_toCode}, from {flyData.utc_arrival} to {flyData.utc_departure}"""
             print(text_sms)
         # Sender_SMS = NotificationManager(KEY=TWILIO_KYE, TOKEN=TWILIO_TOKEN, text_sms=text_sms)
-#This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
