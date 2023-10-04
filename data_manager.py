@@ -7,6 +7,4 @@ class DataManager:
 
     def get_request(self):
         response = requests.get(url=self.sheety_get_endpoint)
-        print(response.status_code)
-        print(response.json())
         return response.json()["prices"]
