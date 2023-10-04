@@ -5,13 +5,12 @@ class FlightSearch:
 
     def __init__(self, API_KEY: str):
         self.fly_search_endpoint = "https://api.tequila.kiwi.com/v2/search?"
+        self.location_search_endpoint = "https://api.tequila.kiwi.com/locations/query"
         self.HEADER = {
-            'accept': 'json',
             'apikey': API_KEY}
 
     def fly_searching(self, fly_from: str, fly_to: str,
                       date_from: str, date_to: str):
-
         search_parameters = {
             "fly_from": fly_from,
             "fly_to": fly_to,
@@ -23,3 +22,11 @@ class FlightSearch:
                                 params=search_parameters)
 
         return response.json()["data"][0]
+
+    def IATA_Code_searching(self, location_name: str):
+        search_parameters = {
+            "term": location_name,
+            "locale": "en-US",
+        }
+        response = requests.get(url=self.location_search_endpoint, headers=self.HEADER, params=search_parameters)
+        return response.json()["locations"][0]["code"]
