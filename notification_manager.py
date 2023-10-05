@@ -12,8 +12,8 @@ class NotificationManager:
         client = Client(self.account_sid, self.auth_token)
 
         message = client.messages.create(
+            from_="+12568294379",
             to='+380503962864',
             body=self.text_sms
         )
 
-    pass
