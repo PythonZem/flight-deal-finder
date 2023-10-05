@@ -8,3 +8,14 @@ class DataManager:
     def get_request(self):
         response = requests.get(url=self.sheety_get_endpoint)
         return response.json()["prices"]
+
+    def put_IATACode(self, IATA_code: str, RowID: int):
+        url = f"{self.sheety_get_endpoint}/{RowID}"
+        params = {"price": {
+            'iataCode': IATA_code}
+        }
+        response = requests.put(url=url, json=params)
+        print(response.status_code)
+
+
+
