@@ -6,3 +6,5 @@ class FlightData:
         self.utc_departure = f"{utc_departure[:10]} {utc_departure[11:19]}"
         self.utc_arrival = f"{utc_arrival[:10]} {utc_arrival[11:19]}"
         self.price = price
+        self.overs = 0
+        self.via_city = ""

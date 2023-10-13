@@ -47,7 +47,7 @@ def start_program():
                 text_sms = f"""Low price alert! Only ${flyData.price} to fly from {fly_fromCity}-{flyData.fly_from} to 
         {fly_toCity}-{fly_toCode}, from {flyData.utc_departure} to {flyData.utc_arrival}"""
                 print(text_sms)
-                NotificationManager(KEY=TWILIO_KYE, TOKEN=TWILIO_TOKEN, text_sms=text_sms)
+                # NotificationManager(KEY=TWILIO_KYE, TOKEN=TWILIO_TOKEN, text_sms=text_sms)
 
 
 start_program()

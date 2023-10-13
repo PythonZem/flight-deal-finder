@@ -42,3 +42,4 @@ class FlightSearch:
         }
         response = requests.get(url=self.location_search_endpoint, headers=self.HEADER, params=search_parameters)
         return response.json()["locations"][0]["code"]
+
